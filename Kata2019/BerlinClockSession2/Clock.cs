@@ -20,23 +20,23 @@ namespace Kata2019.BerlinClockSession2
 			currentTime = GetTimeSpanFromTimeString(timeString);
 			SetTopYellowLight();
 			SetTopRow();
-            SetSecondRow();
-            SetThirdRow();
-            SetBottomRow();
-        }
+			SetSecondRow();
+			SetThirdRow();
+			SetBottomRow();
+		}
 
-        public string Output()
-        {
-            var stringBuilder = new System.Text.StringBuilder();
-            stringBuilder.AppendLine(TopYellowLight);
-            stringBuilder.AppendLine(TopRow);
-            stringBuilder.AppendLine(SecondRow);
-            stringBuilder.AppendLine(ThirdRow);
-            stringBuilder.AppendLine(BottomRow);
-            return stringBuilder.ToString();
-        }
+		public string Output()
+		{
+			var stringBuilder = new System.Text.StringBuilder();
+			stringBuilder.AppendLine(TopYellowLight);
+			stringBuilder.AppendLine(TopRow);
+			stringBuilder.AppendLine(SecondRow);
+			stringBuilder.AppendLine(ThirdRow);
+			stringBuilder.AppendLine(BottomRow);
+			return stringBuilder.ToString();
+		}
 
-        TimeSpan GetTimeSpanFromTimeString(string timeString)
+		TimeSpan GetTimeSpanFromTimeString(string timeString)
 		{
 			return TimeSpan.Parse(timeString);
 		}
@@ -53,74 +53,68 @@ namespace Kata2019.BerlinClockSession2
 
 		void SetTopRow()
 		{
-			TopRow = new Row(4, 5, 'R', currentTime.Hours).ToString();
+			TopRow = new Row(4, Colour.Red, currentTime.Hours / 5).ToString();
 		}
 
-        void SetSecondRow()
-        {
-            SecondRow = new Row(4, 1, 'R', currentTime.Hours % 5).ToString();
-        }
+		void SetSecondRow()
+		{
+			SecondRow = new Row(4, Colour.Red, currentTime.Hours % 5).ToString();
+		}
 
-        void SetThirdRow()
-        {
-            ThirdRow = new Row(11, 5, 'Y', currentTime.Minutes).ToString();
-        }
+		void SetThirdRow()
+		{
+			ThirdRow = new Row(11, Colour.Yellow, currentTime.Minutes / 5).ToString();
+		}
 
-        void SetBottomRow()
-        {
-            BottomRow = new Row(4, 1, 'Y', currentTime.Minutes % 5).ToString();
-        }
+		void SetBottomRow()
+		{
+			BottomRow = new Row(4, Colour.Yellow, currentTime.Minutes % 5).ToString();
+		}
 
-    }
+	}
 
 	public class Row
 	{
 
 		IEnumerable<Light> Lights;
 		char onSymbol;
-		char offSymbol;
-		int numberForEachLight;
+		char offSymbol = 'O';
 
 		public Row(
 			int numberOfLightsInRow,
-			int valueForEachLight,
-			char onSymbol,
-			int valueToSetFrom)
+			Colour colour,
+			int numberOfLightsOn)
 		{
-			this.onSymbol = onSymbol;
-			this.numberForEachLight = valueForEachLight;
-			this.offSymbol = 'O';
-			SetLights(numberOfLightsInRow, valueToSetFrom);
+			this.onSymbol = (char)colour;
+			SetLights(numberOfLightsInRow, numberOfLightsOn);
 		}
 
-		void SetLights(int numberOfLights, int numberToSetFrom)
+		void SetLights(int numberOfLights, int numberOfLightsOn)
 		{
 			var lights = new List<Light>();
-			int currentLightFloorValue = numberForEachLight;
 			for (int position = 0; position < numberOfLights; position++)
 			{
 				lights.Add(
-                    new Light(
-                        position, 
-                        numberToSetFrom > currentLightFloorValue ? onSymbol : offSymbol));
-				currentLightFloorValue += numberForEachLight;
+					new Light(
+						position,
+						position < numberOfLightsOn ? onSymbol : offSymbol));
 			}
 			Lights = lights;
 
 		}
-        public override string ToString()
-        {
-            string result = "";
-            foreach (var currentLight in Lights)
-            {
-                result += currentLight.state;
-            }
-            return result;
-        }
+		public override string ToString()
+		{
+			string result = "";
+			foreach (var currentLight in Lights)
+			{
+				result += currentLight.state;
+			}
+			return result;
+		}
 
-    }
+	}
 
-    public class Light
+	public class Light
 	{
 		public int position { get; }
 		public char state { get; set; }
@@ -131,5 +125,11 @@ namespace Kata2019.BerlinClockSession2
 			this.state = state;
 		}
 
+	}
+
+	public enum Colour
+	{
+		Yellow = 'Y',
+		Red = 'R'
 	}
 }
