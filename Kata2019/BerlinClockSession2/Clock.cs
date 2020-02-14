@@ -32,7 +32,7 @@ namespace Kata2019.BerlinClockSession2
 			stringBuilder.AppendLine(TopRow);
 			stringBuilder.AppendLine(SecondRow);
 			stringBuilder.AppendLine(ThirdRow);
-			stringBuilder.AppendLine(BottomRow);
+			stringBuilder.Append(BottomRow);
 			return stringBuilder.ToString();
 		}
 
