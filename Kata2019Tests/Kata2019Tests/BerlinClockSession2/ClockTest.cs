@@ -49,5 +49,17 @@ namespace Kata2019Tests.BerlinClockSession2
             var clock = new Kata2019.BerlinClockSession2.Clock("12:51:10");
             Assert.Equal("YOOO", clock.BottomRow);
         }
+
+        [Fact]
+        public void TestOutput()
+        {
+            var clock = new Kata2019.BerlinClockSession2.Clock("12:51:10");
+            string expectedOutput = "Y" + Environment.NewLine +
+                "RROO" + Environment.NewLine +
+                "RROO" + Environment.NewLine +
+                "YYYYYYYYYYO" + Environment.NewLine +
+                "YOOO";
+            Assert.Equal(expectedOutput, clock.Output());
+        }
     }
 }

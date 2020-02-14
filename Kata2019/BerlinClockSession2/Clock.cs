@@ -25,7 +25,18 @@ namespace Kata2019.BerlinClockSession2
             SetBottomRow();
         }
 
-		TimeSpan GetTimeSpanFromTimeString(string timeString)
+        public string Output()
+        {
+            var stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.AppendLine(TopYellowLight);
+            stringBuilder.AppendLine(TopRow);
+            stringBuilder.AppendLine(SecondRow);
+            stringBuilder.AppendLine(ThirdRow);
+            stringBuilder.AppendLine(BottomRow);
+            return stringBuilder.ToString();
+        }
+
+        TimeSpan GetTimeSpanFromTimeString(string timeString)
 		{
 			return TimeSpan.Parse(timeString);
 		}
@@ -47,7 +58,7 @@ namespace Kata2019.BerlinClockSession2
 
         void SetSecondRow()
         {
-            SecondRow = new Row(4, 1, 'R', currentTime.Hours).ToString();
+            SecondRow = new Row(4, 1, 'R', currentTime.Hours % 5).ToString();
         }
 
         void SetThirdRow()
@@ -57,7 +68,7 @@ namespace Kata2019.BerlinClockSession2
 
         void SetBottomRow()
         {
-            BottomRow = new Row(4, 1, 'Y', currentTime.Minutes).ToString();
+            BottomRow = new Row(4, 1, 'Y', currentTime.Minutes % 5).ToString();
         }
 
     }
@@ -72,14 +83,14 @@ namespace Kata2019.BerlinClockSession2
 
 		public Row(
 			int numberOfLightsInRow,
-			int numberForEachLight,
+			int valueForEachLight,
 			char onSymbol,
-			int numberToSetFrom)
+			int valueToSetFrom)
 		{
 			this.onSymbol = onSymbol;
-			this.numberForEachLight = numberForEachLight;
+			this.numberForEachLight = valueForEachLight;
 			this.offSymbol = 'O';
-			SetLights(numberOfLightsInRow, numberToSetFrom);
+			SetLights(numberOfLightsInRow, valueToSetFrom);
 		}
 
 		void SetLights(int numberOfLights, int numberToSetFrom)
@@ -88,7 +99,10 @@ namespace Kata2019.BerlinClockSession2
 			int currentLightFloorValue = numberForEachLight;
 			for (int position = 0; position < numberOfLights; position++)
 			{
-				lights.Add(new Light(position, numberToSetFrom > currentLightFloorValue ? onSymbol : offSymbol));
+				lights.Add(
+                    new Light(
+                        position, 
+                        numberToSetFrom > currentLightFloorValue ? onSymbol : offSymbol));
 				currentLightFloorValue += numberForEachLight;
 			}
 			Lights = lights;
