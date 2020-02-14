@@ -29,25 +29,25 @@ namespace Kata2019Tests.BerlinClockSession2
 			Assert.Equal("RROO", clock.TopRow);
 		}
 
-		[Fact]
-		public void TestSecondRow()
-		{
-			var clock = new Kata2019.BerlinClockSession2.Clock("12:51:10");
-			Assert.Equal("RROO", clock.SecondRow);
-		}
+		//[Fact]
+		//public void TestSecondRow()
+		//{
+		//	var clock = new Kata2019.BerlinClockSession2.Clock("12:51:10");
+		//	Assert.Equal("RROO", clock.SecondRow);
+		//}
 
-		[Fact]
-		public void TestThirdRow()
-		{
-			var clock = new Kata2019.BerlinClockSession2.Clock("12:51:10");
-			Assert.Equal("YYYYYYYYYYO", clock.ThirdRow);
-		}
+		//[Fact]
+		//public void TestThirdRow()
+		//{
+		//	var clock = new Kata2019.BerlinClockSession2.Clock("12:51:10");
+		//	Assert.Equal("YYYYYYYYYYO", clock.ThirdRow);
+		//}
 
-		[Fact]
-		public void TestBottomRow()
-		{
-			var clock = new Kata2019.BerlinClockSession2.Clock("12:51:10");
-			Assert.Equal("YOOO", clock.BottomRow);
-		}
+		//[Fact]
+		//public void TestBottomRow()
+		//{
+		//	var clock = new Kata2019.BerlinClockSession2.Clock("12:51:10");
+		//	Assert.Equal("YOOO", clock.BottomRow);
+		//}
 	}
 }

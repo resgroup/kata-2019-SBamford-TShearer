@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Kata2019.BerlinClockSession2
@@ -7,7 +8,7 @@ namespace Kata2019.BerlinClockSession2
 	public class Clock
 	{
 		public string TopYellowLight { get; private set; }
-		public string TopRow { get; private set; }
+		public Row TopRow { get; private set; }
 		public string SecondRow { get; private set; }
 		public string ThirdRow { get; private set; }
 		public string BottomRow { get; private set; }
@@ -34,7 +35,7 @@ namespace Kata2019.BerlinClockSession2
 				TopYellowLight = "O";
 		}
 
-		private bool CheckSecondsAreEven() => currentTime.Seconds % 2 == 0;
+		bool CheckSecondsAreEven() => currentTime.Seconds % 2 == 0;
 
 		void SetTopRow()
 		{
@@ -46,11 +47,16 @@ namespace Kata2019.BerlinClockSession2
 	public class Row
 	{
 
-		char[] Lights;
+		IEnumerable<char> Lights;
 
 		public Row(int numberOfLights)
 		{
-            this.Lights = new char[numberOfLights];
+			this.Lights = Enumerable.Repeat('O', numberOfLights);
 		}
 	}
+
+    public abstract class LightState
+    {
+
+    }
 }
