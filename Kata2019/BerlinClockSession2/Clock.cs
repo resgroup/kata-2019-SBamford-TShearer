@@ -71,7 +71,7 @@ namespace Kata2019.BerlinClockSession2
 		int numberForEachLight;
 
 		public Row(
-			int numberOfLights,
+			int numberOfLightsInRow,
 			int numberForEachLight,
 			char onSymbol,
 			int numberToSetFrom)
@@ -79,7 +79,7 @@ namespace Kata2019.BerlinClockSession2
 			this.onSymbol = onSymbol;
 			this.numberForEachLight = numberForEachLight;
 			this.offSymbol = 'O';
-			SetLights(numberOfLights, numberToSetFrom);
+			SetLights(numberOfLightsInRow, numberToSetFrom);
 		}
 
 		void SetLights(int numberOfLights, int numberToSetFrom)
