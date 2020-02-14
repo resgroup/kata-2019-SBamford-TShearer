@@ -32,7 +32,7 @@ namespace Kata2019.BerlinClockSession2
             stringBuilder.AppendLine(TopRow);
             stringBuilder.AppendLine(SecondRow);
             stringBuilder.AppendLine(ThirdRow);
-            stringBuilder.AppendLine(BottomRow);
+            stringBuilder.Append(BottomRow);
             return stringBuilder.ToString();
         }
 
@@ -102,7 +102,7 @@ namespace Kata2019.BerlinClockSession2
 				lights.Add(
                     new Light(
                         position, 
-                        numberToSetFrom > currentLightFloorValue ? onSymbol : offSymbol));
+                        numberToSetFrom >= currentLightFloorValue ? onSymbol : offSymbol));
 				currentLightFloorValue += numberForEachLight;
 			}
 			Lights = lights;
