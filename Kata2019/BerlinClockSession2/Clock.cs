@@ -20,12 +20,14 @@ namespace Kata2019.BerlinClockSession2
 			currentTime = GetTimeSpanFromTimeString(timeString);
 			SetTopYellowLight();
 			SetTopRow();
-		}
+            SetSecondRow();
+            SetThirdRow();
+            SetBottomRow();
+        }
 
 		TimeSpan GetTimeSpanFromTimeString(string timeString)
 		{
-			var timeElements = timeString.Split(":");
-			return new TimeSpan(Int32.Parse(timeElements[0]), Int32.Parse(timeElements[1]), Int32.Parse(timeElements[2]));
+			return TimeSpan.Parse(timeString);
 		}
 
 		void SetTopYellowLight()
@@ -40,34 +42,80 @@ namespace Kata2019.BerlinClockSession2
 
 		void SetTopRow()
 		{
-            if (currentTime.Hours < 5) {
-                TopRow = "OOOO";
-            } else if (currentTime.Hours < 10) {
-                TopRow = "ROOO";
-            } else if (currentTime.Hours < 15) {
-                TopRow = "RROO";
-            } else if (currentTime.Hours < 20) {
-                TopRow = "RRRO";
-            } else {
-                TopRow = "RRRR";
-            }
+			TopRow = new Row(4, 5, 'R', currentTime.Hours).ToString();
+		}
+
+        void SetSecondRow()
+        {
+            SecondRow = new Row(4, 1, 'R', currentTime.Hours).ToString();
         }
 
-	}
+        void SetThirdRow()
+        {
+            ThirdRow = new Row(11, 5, 'Y', currentTime.Minutes).ToString();
+        }
+
+        void SetBottomRow()
+        {
+            BottomRow = new Row(4, 1, 'Y', currentTime.Minutes).ToString();
+        }
+
+    }
 
 	public class Row
 	{
 
-		IEnumerable<char> Lights;
+		IEnumerable<Light> Lights;
+		char onSymbol;
+		char offSymbol;
+		int numberForEachLight;
 
-		public Row(int numberOfLights)
+		public Row(
+			int numberOfLights,
+			int numberForEachLight,
+			char onSymbol,
+			int numberToSetFrom)
 		{
-			this.Lights = Enumerable.Repeat('O', numberOfLights);
+			this.onSymbol = onSymbol;
+			this.numberForEachLight = numberForEachLight;
+			this.offSymbol = 'O';
+			SetLights(numberOfLights, numberToSetFrom);
 		}
-	}
 
-    public abstract class LightState
-    {
+		void SetLights(int numberOfLights, int numberToSetFrom)
+		{
+			var lights = new List<Light>();
+			int currentLightFloorValue = numberForEachLight;
+			for (int position = 0; position < numberOfLights; position++)
+			{
+				lights.Add(new Light(position, numberToSetFrom > currentLightFloorValue ? onSymbol : offSymbol));
+				currentLightFloorValue += numberForEachLight;
+			}
+			Lights = lights;
+
+		}
+        public override string ToString()
+        {
+            string result = "";
+            foreach (var currentLight in Lights)
+            {
+                result += currentLight.state;
+            }
+            return result;
+        }
 
     }
+
+    public class Light
+	{
+		public int position { get; }
+		public char state { get; set; }
+
+		public Light(int position, char state)
+		{
+			this.position = position;
+			this.state = state;
+		}
+
+	}
 }
