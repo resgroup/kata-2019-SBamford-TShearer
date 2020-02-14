@@ -8,7 +8,7 @@ namespace Kata2019.BerlinClockSession2
 	public class Clock
 	{
 		public string TopYellowLight { get; private set; }
-		public Row TopRow { get; private set; }
+		public string TopRow { get; private set; }
 		public string SecondRow { get; private set; }
 		public string ThirdRow { get; private set; }
 		public string BottomRow { get; private set; }
@@ -27,6 +27,7 @@ namespace Kata2019.BerlinClockSession2
 			var timeElements = timeString.Split(":");
 			return new TimeSpan(Int32.Parse(timeElements[0]), Int32.Parse(timeElements[1]), Int32.Parse(timeElements[2]));
 		}
+
 		void SetTopYellowLight()
 		{
 			if (CheckSecondsAreEven())
@@ -39,8 +40,18 @@ namespace Kata2019.BerlinClockSession2
 
 		void SetTopRow()
 		{
-
-		}
+            if (currentTime.Hours < 5) {
+                TopRow = "OOOO";
+            } else if (currentTime.Hours < 10) {
+                TopRow = "ROOO";
+            } else if (currentTime.Hours < 15) {
+                TopRow = "RROO";
+            } else if (currentTime.Hours < 20) {
+                TopRow = "RRRO";
+            } else {
+                TopRow = "RRRR";
+            }
+        }
 
 	}
 
