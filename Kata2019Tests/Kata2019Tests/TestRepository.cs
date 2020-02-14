@@ -8,11 +8,6 @@ namespace Kata2019Tests
 {
 	public class TestRepository
 	{
-		[Fact]
-		public void TestSampleObject()
-		{
-			var sampleObject = new SampleObject(10);
-			Assert.Equal("Hello World!!!!!!!!!!", sampleObject.HelloWorld());
-		}
+
 	}
 }
